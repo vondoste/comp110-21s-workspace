@@ -22,4 +22,5 @@
     "python.testing.pytestArgs": [],
     "python.envFile": "${workspaceFolder}/.env",
     "python.analysis.typeCheckingMode": "basic",
+    "python.pythonPath": "/usr/local/bin/python",
 }
