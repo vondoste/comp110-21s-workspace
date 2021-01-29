@@ -22,4 +22,5 @@
     "python.testing.pytestArgs": [],
     "python.envFile": "${workspaceFolder}/.env",
     "python.analysis.typeCheckingMode": "basic",
+    "python.pythonPath": "C:\\Users\\steve\\AppData\\Local\\Programs\\Python\\Python39\\python.exe",
 }
