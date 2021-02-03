@@ -1,6 +1,6 @@
 """An exercise in remainders and boolean logic."""
 
-__author__ = "ENTER YOUR 9-DIGIT PID HERE"
+__author__ = "730366999"
 
 
 # Begin your solution here...
