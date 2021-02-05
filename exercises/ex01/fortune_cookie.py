@@ -16,29 +16,29 @@ from random import randint
 
 # Declare msg as integer, and initialize it with random number from 1 to 5
 msg: int = randint(1, 5)
-#print("msg = " + str(msg))  #display value of msg to verify that I display the correct message
+# print("msg = " + str(msg))  # display value of msg to verify that I display the correct message
 
 # Print first line
 print("Your fortune cookie says...")
 
 # Select "fortune" for the second line of output
-if msg < 2: #detects msg == 1
+if msg < 2:  # detects msg == 1
     print("May the bluebird of happiness leave glad tidings upon your shoulder.")
 
 else:
-    if msg < 3: #detects msg == 2
+    if msg < 3:  # detects msg == 2
         print("'Should be' and 'Is be' ain't necessarily the same thing.")
 
     else:
-        if msg < 4: #detects msg == 3
+        if msg < 4:  # detects msg == 3
             print("No matter where you go, there you are.")
 
         else:
-            if msg < 5: #detects msg == 4
+            if msg < 5:  # detects msg == 4
                 print("If you don't know why you are doing something, maybe you shouldn't be doing it.")
 
-            else:   #detects if msg == 5
-                print("Knowing something, and thinking you know something both feel the same until you are proven wrong.")                 
+            else:   # detects if msg == 5
+                print("Knowing something, and thinking you know both feel the same until you are proven wrong.")                 
 
 # Print last line
 print("Now, go spread positive vibes!")
