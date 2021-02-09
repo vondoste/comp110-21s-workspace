@@ -1,6 +1,6 @@
 """Tar Heels exercise redux as a structured program."""
 
-__author__ = "YOUR 9-DIGIT PID"
+__author__ = "730366999"
 
 
 def main() -> None:
