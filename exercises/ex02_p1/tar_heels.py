@@ -10,6 +10,7 @@ def main() -> None:
 
 
 def tar_heels(number: int) -> str:  # Define tar_heels function.  Takes one int, returns a str.
+    """Implements the divisible by 2 and 7 magic from EX01 tar_heels.py."""
     result: str = "insert result here."  # Declare variable to hold my result
 
     if 0 == number % 2:  # is number evenly divisible by 2?

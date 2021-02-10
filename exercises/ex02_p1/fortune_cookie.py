@@ -13,6 +13,7 @@ def main() -> None:
 
 
 def fortune_cookie() -> str:  # Define fortune_cookie function.
+    """Generates one of 5 fortunes randomly."""
     fortune: str = "What do you want for nothing, rubber biscuit?"  # Initialize variable to hold fortune.
     msg: int = randint(1, 5)  # Declare msg as integer, and initialize it with random number from 1 to 5.
 
@@ -36,7 +37,6 @@ def fortune_cookie() -> str:  # Define fortune_cookie function.
                     fortune = "May the bluebird of happiness leave glad tidings upon your shoulder."
     
     return fortune
-
 
 
 # Python Idiom for "starting" the program when run as a module.
