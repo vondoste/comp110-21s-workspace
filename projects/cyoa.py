@@ -1,4 +1,5 @@
 """PJ00 - Choose your own adventure.  Our first project
+    This should teach you to not play games on street corners for money.
     include description of above and beyond options
 """
 
@@ -9,6 +10,8 @@ __author__ = "730366999"
 player: str = "nobody"  # Everybody starts out as nobody.
 points: int # Keep score here.
 UNICODE_ESCAPE: str = "\U00000000"  # Unicode escape sequence (required named constant)
+CUP: str = "\U0001F95B"  # Unicode "glass of milk" looks like a white cup
+BALL: str = "\U0001F7E2"  # Unicode "green circle" looks like a ball
 
 
 def main() -> None:
@@ -18,22 +21,28 @@ def main() -> None:
     points = 0  # Everybody starts with nothing. 
     # Insert a loop somewhere in main()
     greet()
-    decision: int = int(input(f"Hey { player }, whatcha want to do? (1=bet/2=play/3=sell/4 or more = take a hike."))  # supply details later
-    if decision == 1:
-        
-        # procedure call (put your pocket money on the table, or sell an item to get money
-        ante_up()
-        # textual interaction, use players name, ask for more input, update players score.
+    print(f"Hey, {player} ya gotta pay if ya wanna play.")
+    ante_up()  # You gotta pay if you want to play
+    decision: int = 0  # Flag that this hasn't been run, yet.
 
-    if decision == 2:
+    while decision < 4:
+        decision = int(input(f"Hey { player }, you got ${points} whatcha want to do? (1=bet/2=play/3=sell/4 or more = take a hike."))  # supply details later
+        if decision == 1:
         
-        # call a function that takes an integer and returns an integer.  Use players name.
-        points = play_game(points)  # points = func(points) -> returns points after doing something to them.
-        #find the ping pong ball?  Use an element of randomness
+            # procedure call (put your pocket money on the table, or sell an item to get money
+            ante_up()
+            # textual interaction, use players name, ask for more input, update players score.
 
-    if decision == 3:
-        points = sell_something(points)
-        # track how many times something is sold, and play with messages.
+        if decision == 2:
+            if points > 0:
+                points = play_game(points)  # points = func(points) -> returns points after doing something to them.
+            # call a function that takes an integer and returns an integer.  Use players name.
+            else:
+                print("This ain't no bank, we don't give credit")
+
+        if decision == 3:
+            points = sell_something(points)
+            # track how many times something is sold, and play with messages.
 
     print(f"Alright { player }, we'll catch you next time.")
     print(f"You're walking away with ${ points }!")
@@ -56,17 +65,30 @@ def play_game(points: int) -> int:
     from random import randint
     choice: int = 0
     ball: int = randint(1,3)
+    cheat: bool = points > 100 # risk mitigation strategy, cheat if thay have won more than $100
     # do something to points
     print("I have hidden the ball under one of these three cups.")
-    print("  \U0001F95B \U0001F95B \U0001F95B ")
+    print(f"{CUP} {CUP} {CUP}")
     choice = int(input("Double or nothing, which cup is the ball under (1,2, or 3)?"))
+
+    if cheat:
+        print("Now we're playin' for BIG MONEY!")
+        if ball == choice:  # Detect a win and make it a lose (the dealer has fast hands!)
+            # make sure they lose
+            if choice == 3:
+                ball = 2
+            if choice == 2:
+                ball = 1
+            if choice == 1:
+                ball = 3
+
     if ball < 3:  # Display which of the 3 cups has the ball
         if ball < 2:
-            print("  \U0001F7E2 \U0001F95B \U0001F95B  ")
+            print(f"{BALL} {CUP} {CUP}")
         else:
-            print("  \U0001F95B \U0001F7E2 \U0001F95B  ")
+            print(f"{CUP} {BALL} {CUP}")
     else:
-        print("  \U0001F95B \U0001F95B \U0001F7E2 ")
+        print(f"{CUP} {CUP} {BALL} ")
 
     if choice == ball:
         print("We have a Winner! Way to double your money.")
@@ -82,7 +104,7 @@ def ante_up() -> None:
     """How much money you got?"""
     global points
     print(f"Alright { player }, it's time to put your money on the table.")
-    points = int(input("How many dollars you got, we don't mess with small change?"))
+    points = int(input("How many dollars you got? We don't mess with change."))
 
 
 def sell_something(points:int) -> int:
