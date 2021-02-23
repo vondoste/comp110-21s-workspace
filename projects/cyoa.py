@@ -33,6 +33,7 @@ def main() -> None:
 
     if decision == 3:
         points = sell_something(points)
+        # track how many times something is sold, and play with messages.
 
     print(f"Alright { player }, we'll catch you next time.")
     print(f"You're walking away with ${ points }!")
