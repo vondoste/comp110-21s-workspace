@@ -1,7 +1,8 @@
 """PJ00 - Choose your own adventure.  Our first project
     This is my interpretation of "the shell game" (https://en.wikipedia.org/wiki/Shell_game)
     This should teach you to not play games on street corners for money.
-    As an extra feature, I have added a cheat flag that get's set if the wager goes over $100, can't cover too big a loss.
+    As an extra feature, I have added a cheat flag that get's set if the pot goes over $100,
+    can't cover too big a loss.
 
 """
 
@@ -13,12 +14,19 @@ player: str = "nobody"  # Everybody starts out as nobody.
 points: int # Keep score here.
 sales_count: int = 0  # How many items have you sold
 objects_to_sell: list[str] = ["pocket knife", "watch", "chain", "ring"]  # A list of four objects to pawn
-prices_of_objects: list[int] = [5, 20, 30, 45]  # A list of prices to pay for the objects in the line above, in same order.
-NUMBER_OF_ITEMS: int = 4  # Must be set to the number if items in the two lists above.
+prices_of_objects: list[int] = [5, 20, 30, 45]  # A list of prices for the objects in objects_to_sell, in same order.
+NUMBER_OF_ITEMS: int = 4  # Must be set to the number of items in objects_to_sell & prices_of_objects.
 UNICODE_ESCAPE: str = "\U00000000"  # Unicode escape sequence (required named constant)
 CUP: str = "\U0001F95B"  # Unicode "glass of milk" looks like a white cup
 BALL: str = "\U0001F7E2"  # Unicode "green circle" looks like a ball
-FLAT_BROKE: int = 99
+WINNER: str = "\U0001F603"  # A big grin.
+LOSER: str = "\U0001F622"  # Cry me a river.
+MONEY: str = "\U0001F4B5"  # Show me the money.
+NOT_HAPPY: str = "\U0001F620"  # A face to show you mean business.
+EMBARRASSED: str = "\U0001F633"  # That's so embarrassing!
+WAVE: str = "\U0001F44B"  # Waving good bye
+FLAT_BROKE: int = 99  # A high value for decision that will always end the game
+
 
 
 def main() -> None:
@@ -35,7 +43,8 @@ def main() -> None:
     while decision < 3:
         # print(f"Previous value of decision: {decision}")  # Debug statement.
         # print(f"Value of sales_count {sales_count}")  # Debug Statement.
-        decision = int(input(f"Well { player }, you got ${points} whatcha want to do? (1=play / 2=sell something / 3 or more = take a hike."))
+        print(f"Well { player }, you got ${points} whatcha want to do? ")
+        decision = int(input("1=play / 2=sell something / 3 or more = take a hike."))
         if decision == 0:
         
             # procedure call (put your pocket money on the table, or sell an item to get money
@@ -47,7 +56,7 @@ def main() -> None:
                 points = play_game(points)  # points = func(points) -> returns points after doing something to them.
             # call a function that takes an integer and returns an integer.  Use players name.
             else:
-                print("This ain't no bank, we don't give credit")
+                print(f"{NOT_HAPPY} This ain't no bank, we don't give credit")
 
         if decision == 2:
             points = sell_something(points)
@@ -55,7 +64,7 @@ def main() -> None:
                 decision = FLAT_BROKE  # This should force the end of the game, since this mark is broke
             # track how many times something is sold, and play with messages.
 
-    print(f"Alright { player }, we'll catch you next time.")
+    print(f"{WAVE} Alright { player }, we'll catch you next time.")
     print(f"You're walking away with ${ points }!")
 
     return
@@ -65,7 +74,7 @@ def greet() -> None:
     """Say hello, get the players name."""
     global player
 
-    print("Step right up, try your luck, every game has a winner!")  # Decide on snazzy greeting    
+    print(f"{WINNER} Step right up, try your luck, every game has a winner!")  # Decide on snazzy greeting    
     player = str(input("Hey Sport, what's your name?")) # Lookup the details of how to do this
 
 
@@ -82,7 +91,7 @@ def play_game(points: int) -> int:
     print(f"{CUP} {CUP} {CUP}")
     choice = int(input("Double or nothing, which cup is the ball under (1,2, or 3)?"))
 
-    if cheat:
+    if cheat:  # We can't afford to lose this much, so cheat
         print("Now we're playin' for BIG MONEY!")
         if ball == choice:  # Detect a win and make it a lose (the dealer has fast hands!)
             # make sure they lose
@@ -102,10 +111,10 @@ def play_game(points: int) -> int:
         print(f"{CUP} {CUP} {BALL} ")
 
     if choice == ball:
-        print("We have a Winner! Way to double your money.")
+        print(f"{WINNER} We have a Winner!  Way to double your money.")
         points = points * 2
     else:
-        print("Hey, better luck next time.")
+        print(f"{LOSER} Hey, better luck next time.")
         points = 0
 
     return points
@@ -114,7 +123,7 @@ def play_game(points: int) -> int:
 def ante_up() -> None:
     """How much money you got?"""
     global points
-    print(f"It's time to put your money on the table.")
+    print(f"{MONEY} It's time to put your money on the table.")
     while points < 1:
         points = int(input("How many dollars you got? We don't mess with change."))
 
@@ -125,11 +134,11 @@ def sell_something(points:int) -> int:
     response: str = ""
 
     if sales_count > NUMBER_OF_ITEMS - 1:  # make sure you don't index past the end of the lists in the next line.
-        print("Pockets on empty cuz?  Come back when you got more something to play with.")
+        print(f"{EMBARRASSED} Pockets on empty cuz?  Come back when you got something to play with.")
         sales_count += 1  # This should trigger the FLAT_BROKE contingency.
         return points
-    
-    response = str(input(f"Hey { player }, that's a nice {objects_to_sell[sales_count]}, want to sell it?  I'll give you ${prices_of_objects[sales_count]} for it (y/n)"))
+    print(f"Hey { player }, that's a nice {objects_to_sell[sales_count]}, want to sell it?") 
+    response = str(input(f" I'll give you ${prices_of_objects[sales_count]} for it (y/n)"))
     if response.casefold() == "y":
         points = points + prices_of_objects[sales_count]
         sales_count += 1
