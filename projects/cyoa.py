@@ -8,14 +8,14 @@
 """
 
 __author__ = "730366999"
-# use f strings, no concatenating allowed!
+from typing import List
 
 
 player: str = "nobody"  # Everybody starts out as nobody.
 points: int # Keep score here.
 sales_count: int = 0  # How many items have you sold
-objects_to_sell: list[str] = ["pocket knife", "watch", "chain", "ring"]  # A list of four objects to pawn
-prices_of_objects: list[int] = [5, 20, 30, 45]  # A list of prices for the objects in objects_to_sell, in same order.
+objects_to_sell: List[str] = ["pocket knife", "watch", "chain", "ring"]  # A list of four objects to pawn
+prices_of_objects: List[int] = [5, 20, 30, 45]  # A list of prices for the objects in objects_to_sell, in same order.
 NUMBER_OF_ITEMS: int = 4  # Must be set to the number of items in objects_to_sell & prices_of_objects.
 CUP: str = "\U0001F95B"  # Unicode "glass of milk" looks like a white cup
 BALL: str = "\U0001F7E2"  # Unicode "green circle" looks like a ball
