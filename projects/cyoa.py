@@ -1,37 +1,37 @@
-"""PJ00 - Choose your own adventure.  Our first project
-    This is my interpretation of "the shell game" (https://en.wikipedia.org/wiki/Shell_game)
-    This should teach you to not play games on street corners for money.
-    ** Game loop - Starts on line #44.
-    ** Additional Features - lines 88, 90 and 97 change the game if the player has over $100 on the table.
-                             lines 17 - 19 define an inventory of items to sell to keep playing.
-                             line 64-65 ends the game if the player runs out of items to sell.
+"""PJ00 - Choose your own adventure.  Our first project.
+
+This is my interpretation of "the shell game" (https://en.wikipedia.org/wiki/Shell_game)
+This should teach you to not play games on street corners for money.
+** Game loop - Starts on line #44.
+** Additional Features - lines 86, 88, and 95 change the game if the player has over $100 on the table.
+lines 18 - 20 define an inventory of items to sell to keep playing.
+line 64-65 ends the game if the player runs out of items to sell.
 """
 
 __author__ = "730366999"
+
 from typing import List
 
-
 player: str = "nobody"  # Everybody starts out as nobody.
-points: int # Keep score here.
+points: int  # Keep score here.
 sales_count: int = 0  # How many items have you sold
-objects_to_sell: List[str] = ["pocket knife", "watch", "chain", "ring"]  # A list of four objects to pawn
+objects_to_sell: List[str] = ["pocket knife", "watch", "chain", "ring"]  # A list of objects to pawn
 prices_of_objects: List[int] = [5, 20, 30, 45]  # A list of prices for the objects in objects_to_sell, in same order.
 NUMBER_OF_ITEMS: int = 4  # Must be set to the number of items in objects_to_sell & prices_of_objects.
 CUP: str = "\U0001F95B"  # Unicode "glass of milk" looks like a white cup
 BALL: str = "\U0001F7E2"  # Unicode "green circle" looks like a ball
-WINNER: str = "\U0001F603"  # A big grin.
-LOSER: str = "\U0001F622"  # Cry me a river.
-MONEY: str = "\U0001F4B5"  # Show me the money.
-NOT_HAPPY: str = "\U0001F620"  # A face to show you mean business.
-EMBARRASSED: str = "\U0001F633"  # That's so embarrassing!
-WAVE: str = "\U0001F44B"  # Waving good bye
-NERVOUS: str = "\U0001F605"  # Now we're sweating.
+WINNER: str = "\U0001F603"  # Unicode A big grin.
+LOSER: str = "\U0001F622"  # Unicode Cry me a river.
+MONEY: str = "\U0001F4B5"  # Unicode Show me the money.
+NOT_HAPPY: str = "\U0001F620"  # Unicode A face to show you mean business.
+EMBARRASSED: str = "\U0001F633"  # Unicode That's so embarrassing!
+WAVE: str = "\U0001F44B"  # Unicode Waving good bye
+NERVOUS: str = "\U0001F605"  # Unicode Now we're sweating.
 FLAT_BROKE: int = 99  # A high value for decision that will always end the game
 
 
-
 def main() -> None:
-    """main function - Our entry point to the virtual world"""
+    """Our main function - Our entry point to the virtual world."""
     global points
     
     points = 0  # We start with no money on the table
@@ -75,18 +75,16 @@ def greet() -> None:
     global player
 
     print(f"{WINNER} Step right up, try your luck, every game has a winner!")  # Decide on snazzy greeting    
-    player = str(input("Hey Sport, what's your name?")) # Lookup the details of how to do this
-
-
+    player = str(input("Hey Sport, what's your name?"))  # Lookup the details of how to do this
 
 
 def play_game(points: int) -> int:
-    """ball finding begins here"""
+    """Ball finding begins here."""
     from random import randint
     choice: int = 0
-    ball: int = randint(1,3)
-    cheat: bool = points > 100 # risk mitigation strategy, cheat if thay have won more than $100
-    # do something to points
+    ball: int = randint(1, 3)
+    cheat: bool = points > 100  # risk mitigation strategy, cheat if thay have more than $100 on table
+
     if cheat:
         print(f"{NERVOUS} Now we're playin' for BIG MONEY!")
 
@@ -130,7 +128,7 @@ def ante_up() -> None:
         points = int(input("How many dollars you got? We don't mess with change."))
 
 
-def sell_something(points:int) -> int:
+def sell_something(points: int) -> int:
     """What has it got in it's pocketses?"""
     global sales_count
     response: str = ""
