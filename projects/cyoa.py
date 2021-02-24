@@ -1,9 +1,10 @@
 """PJ00 - Choose your own adventure.  Our first project
     This is my interpretation of "the shell game" (https://en.wikipedia.org/wiki/Shell_game)
     This should teach you to not play games on street corners for money.
-    As an extra feature, I have added a cheat flag that get's set if the pot goes over $100,
-    can't cover too big a loss.
-
+    ** Game loop - Starts on line #44.
+    ** Additional Features - lines 88, 90 and 97 change the game if the player has over $100 on the table.
+                             lines 17 - 19 define an inventory of items to sell to keep playing.
+                             line 64-65 ends the game if the player runs out of items to sell.
 """
 
 __author__ = "730366999"
@@ -16,7 +17,6 @@ sales_count: int = 0  # How many items have you sold
 objects_to_sell: list[str] = ["pocket knife", "watch", "chain", "ring"]  # A list of four objects to pawn
 prices_of_objects: list[int] = [5, 20, 30, 45]  # A list of prices for the objects in objects_to_sell, in same order.
 NUMBER_OF_ITEMS: int = 4  # Must be set to the number of items in objects_to_sell & prices_of_objects.
-UNICODE_ESCAPE: str = "\U00000000"  # Unicode escape sequence (required named constant)
 CUP: str = "\U0001F95B"  # Unicode "glass of milk" looks like a white cup
 BALL: str = "\U0001F7E2"  # Unicode "green circle" looks like a ball
 WINNER: str = "\U0001F603"  # A big grin.
@@ -25,6 +25,7 @@ MONEY: str = "\U0001F4B5"  # Show me the money.
 NOT_HAPPY: str = "\U0001F620"  # A face to show you mean business.
 EMBARRASSED: str = "\U0001F633"  # That's so embarrassing!
 WAVE: str = "\U0001F44B"  # Waving good bye
+NERVOUS: str = "\U0001F605"  # Now we're sweating.
 FLAT_BROKE: int = 99  # A high value for decision that will always end the game
 
 
@@ -40,11 +41,11 @@ def main() -> None:
     ante_up()  # Gotta put money on the table to move forward.
     decision: int = 0  # Flag that this hasn't been run, yet.
 
-    while decision < 3:
+    while decision < 3:  # Game Loop 
         # print(f"Previous value of decision: {decision}")  # Debug statement.
         # print(f"Value of sales_count {sales_count}")  # Debug Statement.
         print(f"Well { player }, you got ${points} whatcha want to do? ")
-        decision = int(input("1=play / 2=sell something / 3 or more = take a hike."))
+        decision = int(input("1=play / 2=sell something / 3 or more = take a hike."))  # Choose your adventure!
         if decision == 0:
         
             # procedure call (put your pocket money on the table, or sell an item to get money
@@ -62,7 +63,6 @@ def main() -> None:
             points = sell_something(points)
             if sales_count > NUMBER_OF_ITEMS:  # Determine if our pigeon has been plucked clean
                 decision = FLAT_BROKE  # This should force the end of the game, since this mark is broke
-            # track how many times something is sold, and play with messages.
 
     print(f"{WAVE} Alright { player }, we'll catch you next time.")
     print(f"You're walking away with ${ points }!")
@@ -87,12 +87,14 @@ def play_game(points: int) -> int:
     ball: int = randint(1,3)
     cheat: bool = points > 100 # risk mitigation strategy, cheat if thay have won more than $100
     # do something to points
+    if cheat:
+        print(f"{NERVOUS} Now we're playin' for BIG MONEY!")
+
     print("I have hidden the ball under one of these three cups.")
     print(f"{CUP} {CUP} {CUP}")
     choice = int(input("Double or nothing, which cup is the ball under (1,2, or 3)?"))
 
     if cheat:  # We can't afford to lose this much, so cheat
-        print("Now we're playin' for BIG MONEY!")
         if ball == choice:  # Detect a win and make it a lose (the dealer has fast hands!)
             # make sure they lose
             if choice == 3:
