@@ -33,8 +33,8 @@ def main() -> None:
     decision: int = 0  # Flag that this hasn't been run, yet.
 
     while decision < 3:
-        print(f"Previous value of decision: {decision}")
-        print(f"Value of sales_count {sales_count}")
+        # print(f"Previous value of decision: {decision}")  # Debug statement.
+        # print(f"Value of sales_count {sales_count}")  # Debug Statement.
         decision = int(input(f"Well { player }, you got ${points} whatcha want to do? (1=play / 2=sell something / 3 or more = take a hike."))
         if decision == 0:
         
