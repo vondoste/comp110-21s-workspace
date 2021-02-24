@@ -1,6 +1,8 @@
 """PJ00 - Choose your own adventure.  Our first project
+    This is my interpretation of "the shell game" (https://en.wikipedia.org/wiki/Shell_game)
     This should teach you to not play games on street corners for money.
-    include description of above and beyond options
+    As an extra feature, I have added a cheat flag that get's set if the wager goes over $100, can't cover too big a loss.
+
 """
 
 __author__ = "730366999"
@@ -9,39 +11,48 @@ __author__ = "730366999"
 
 player: str = "nobody"  # Everybody starts out as nobody.
 points: int # Keep score here.
+sales_count: int = 0  # How many items have you sold
+objects_to_sell: list[str] = ["pocket knife", "watch", "chain", "ring"]  # A list of four objects to pawn
+prices_of_objects: list[int] = [5, 20, 30, 45]  # A list of prices to pay for the objects in the line above, in same order.
+NUMBER_OF_ITEMS: int = 4  # Must be set to the number if items in the two lists above.
 UNICODE_ESCAPE: str = "\U00000000"  # Unicode escape sequence (required named constant)
 CUP: str = "\U0001F95B"  # Unicode "glass of milk" looks like a white cup
 BALL: str = "\U0001F7E2"  # Unicode "green circle" looks like a ball
+FLAT_BROKE: int = 99
 
 
 def main() -> None:
     """main function - Our entry point to the virtual world"""
     global points
     
-    points = 0  # Everybody starts with nothing. 
+    points = 0  # We start with no money on the table
     # Insert a loop somewhere in main()
     greet()
-    print(f"Hey, {player} ya gotta pay if ya wanna play.")
-    ante_up()  # You gotta pay if you want to play
+    print(f"{player} ya gotta pay if ya wanna play.")
+    ante_up()  # Gotta put money on the table to move forward.
     decision: int = 0  # Flag that this hasn't been run, yet.
 
-    while decision < 4:
-        decision = int(input(f"Hey { player }, you got ${points} whatcha want to do? (1=bet/2=play/3=sell/4 or more = take a hike."))  # supply details later
-        if decision == 1:
+    while decision < 3:
+        print(f"Previous value of decision: {decision}")
+        print(f"Value of sales_count {sales_count}")
+        decision = int(input(f"Well { player }, you got ${points} whatcha want to do? (1=play / 2=sell something / 3 or more = take a hike."))
+        if decision == 0:
         
             # procedure call (put your pocket money on the table, or sell an item to get money
             ante_up()
             # textual interaction, use players name, ask for more input, update players score.
 
-        if decision == 2:
+        if decision == 1:
             if points > 0:
                 points = play_game(points)  # points = func(points) -> returns points after doing something to them.
             # call a function that takes an integer and returns an integer.  Use players name.
             else:
                 print("This ain't no bank, we don't give credit")
 
-        if decision == 3:
+        if decision == 2:
             points = sell_something(points)
+            if sales_count > NUMBER_OF_ITEMS:  # Determine if our pigeon has been plucked clean
+                decision = FLAT_BROKE  # This should force the end of the game, since this mark is broke
             # track how many times something is sold, and play with messages.
 
     print(f"Alright { player }, we'll catch you next time.")
@@ -103,18 +114,25 @@ def play_game(points: int) -> int:
 def ante_up() -> None:
     """How much money you got?"""
     global points
-    print(f"Alright { player }, it's time to put your money on the table.")
-    points = int(input("How many dollars you got? We don't mess with change."))
+    print(f"It's time to put your money on the table.")
+    while points < 1:
+        points = int(input("How many dollars you got? We don't mess with change."))
 
 
 def sell_something(points:int) -> int:
     """What has it got in it's pocketses?"""
-    PRICE_OF_WATCH: int = 30  # What I'll pay a sucker for a gold watch
+    global sales_count
     response: str = ""
 
-    response = str(input(f"Hey { player }, that's a nice watch, want to sell it?  I'll give you $30 for it (y/n)"))
+    if sales_count > NUMBER_OF_ITEMS - 1:  # make sure you don't index past the end of the lists in the next line.
+        print("Pockets on empty cuz?  Come back when you got more something to play with.")
+        sales_count += 1  # This should trigger the FLAT_BROKE contingency.
+        return points
+    
+    response = str(input(f"Hey { player }, that's a nice {objects_to_sell[sales_count]}, want to sell it?  I'll give you ${prices_of_objects[sales_count]} for it (y/n)"))
     if response.casefold() == "y":
-        points = points + PRICE_OF_WATCH
+        points = points + prices_of_objects[sales_count]
+        sales_count += 1
 
     return points
 
