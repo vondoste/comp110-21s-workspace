@@ -1,18 +1,17 @@
 """EX03 - prime functions."""
+from typing import List
 
 __author__: str = "730366999"
 
-from typing import List
 
 def is_prime(x: int) -> bool:
-    """
-    The Prime Detective, x must be greater than 1.
+    """The Prime Detective, x must be greater than 1.
     
     We know that a prime number is divisible by itself and by 1.
     It should not be evenly divisible by anything else.
     We will loop through every value from x-1 down to 2, looking for 
     a number that evenly divides x.
-    If none do, then return True
+    If none do, then return True.
     """
     i: int = x - 1  # set i = to x -1 
 

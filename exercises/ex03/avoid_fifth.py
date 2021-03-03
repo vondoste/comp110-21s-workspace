@@ -3,7 +3,7 @@
 __author__: str = "730366999"
 
 
-def avoid_fifth(input_string:str) -> str:
+def avoid_fifth(input_string: str) -> str:
     """Remove the letter 'E' from every string."""
     output: str = ""  # Start with an empty string
     letter: str = ""  # a place to hold a letter

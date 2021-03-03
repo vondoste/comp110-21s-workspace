@@ -2,6 +2,7 @@
 
 __author__: str = "730366999"
 
+
 def palindromify(word: str, even: bool) -> str:
     """Will make a palindrome from your input string, specify if it will be even or odd in length."""
     i: int = len(word) - 1  # set loop index last character in word.
