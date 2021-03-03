@@ -1,6 +1,6 @@
 """EX03 - palindromify function."""
 
-__author__: str = "YOUR PID HERE"
+__author__: str = "730366999"
 
 
 def main() -> None:
