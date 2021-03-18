@@ -43,3 +43,6 @@ flask
 
 # Shell scripting helpers
 shelljob
+
+# Visualization
+seaborn
