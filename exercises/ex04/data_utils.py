@@ -41,3 +41,17 @@ def columnar(table_of_rows: list[dict[str, str]]) -> dict[str,list[str]]:
         results[column] = column_values(table_of_rows, column)
 
     return results
+
+def head(table_of_columns: dict[str, list[str]], number_of_rows: int) -> dict[str, list[str]]:
+    """Produces a new column-based table with only the first n rows of data for each column."""
+    results: dict[str, list[str]] = {}
+
+    for column in table_of_columns.keys():
+        temporary: list[str] = []
+        holding_column: list[str] = table_of_columns[column]
+        for i in range(number_of_rows):
+            temporary.append(holding_column[i])
+        
+        results[column] = temporary
+    
+    return results
