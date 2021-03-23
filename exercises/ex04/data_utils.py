@@ -55,3 +55,25 @@ def head(table_of_columns: dict[str, list[str]], number_of_rows: int) -> dict[st
         results[column] = temporary
     
     return results
+
+
+def select(input_table: dict[str, list[str]], columns_wanted: list[str]) -> dict[str, list[str]]:
+    """Returns a subset of the input_table that only contains the columns named in columns_wanted."""
+    output_table: dict[str, list[str]] = {}
+    for column in columns_wanted:
+        output_table[column] = input_table[column]
+
+    return output_table
+
+
+def count(list_of_values: list[str]) -> dict[str, int]:
+    """Given a list values, returns a dict with each unique value, and a count of how often it was in the list."""
+    results: dict[str, int] = {}
+    for value in list_of_values:
+        if value in results:
+            results[value] += 1
+        
+        else:
+            results[value] = 1
+    
+    return results
