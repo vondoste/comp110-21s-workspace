@@ -38,5 +38,3 @@ for i in range(len(books_of_bible)):
 
 type(bible)
 
-for line in lines:
-    
