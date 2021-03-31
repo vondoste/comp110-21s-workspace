@@ -80,3 +80,16 @@ def count(list_of_values: list[str]) -> dict[str, int]:
             results[value] = 1
     
     return results
+
+
+def csv_in_column_distribution(input_list: list[str]) -> dict[str, int]:
+    """Given a list of csv strings, will return a dictionary of counts for each unique value in the list"""
+    results: dict[str, int] = {}
+    for string in input_list:
+        values: list[str] = string.split(", ")
+        for item in values:
+            if item in results.keys():
+                results[item] += 1
+            else:
+                results[item] = 1
+    return results
