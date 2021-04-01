@@ -1,4 +1,4 @@
-
+print("square_to_root")
 square_to_root: dict[int, int] = {}
 
 i: int = 1
@@ -10,6 +10,8 @@ print(square_to_root)
 
 
 """Diagram 1"""
+print("Diagram 1")
+
 a: dict[str, int] = {"k": 1}  # dict literal, creates a new dict on the heap.
 b: dict[str, int] = a  # refers to existing dict on the heap
 c: dict[str, int] = b  # refers to existing dict on the heap
@@ -34,18 +36,43 @@ print(freqs[1])
 print(len(freqs))
 
 
+"""Diagram 2"""
+print("Diagram 2")
+
+
 """Diagram 3"""
+print("Diagram 3")
+
 # practice problems
+def a(x: int) -> int:
+    y: int = b(x-1)
+    return x + y
+
+
+def b(x: int) -> int:
+    y: int = c(x - 1)
+    return x + y
+
+
+def c(x: int) -> int:
+    return x
+
+
+print(a(3))
 
 """Diagram 4"""
+print("Diagram 4")
+
 # practice problems
 def add(xs: list[int]) -> int:
     if len(xs) == 0:
         return 0
     
     else:
-        x: int = xs.pop[]
+        x: int = xs.pop()
         y = add(xs)
         return x + y
 
-nums: list[int]
+nums: list[int] = [1,2,3]
+print(add(nums))
+print(len(nums))
