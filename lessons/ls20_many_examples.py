@@ -21,6 +21,9 @@ print(a["k"])
 print(b["k"])
 print(c["k"])
 
+
+"""Diagram 2"""
+print("Diagram 2")
 def invert(kvs: dict[str, int]) -> dict[int, str]:
     result: dict[int, str] = {}
     for key in kvs:
@@ -35,9 +38,6 @@ freqs: dict[int, str] =  invert(counts)
 print(freqs[1])
 print(len(freqs))
 
-
-"""Diagram 2"""
-print("Diagram 2")
 
 
 """Diagram 3"""
