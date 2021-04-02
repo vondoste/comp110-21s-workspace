@@ -93,3 +93,11 @@ def csv_in_column_distribution(input_list: list[str]) -> dict[str, int]:
             else:
                 results[item] = 1
     return results
+
+
+def average_list(input: list[int]) -> float:
+    """Given a list of integers, returns the average value of the list."""
+    accumulator: int = 0
+    for number in input:
+        accumulator += number
+    return accumulator / len(input)
