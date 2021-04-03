@@ -95,9 +95,50 @@ def csv_in_column_distribution(input_list: list[str]) -> dict[str, int]:
     return results
 
 
+def csv_tally(input: list[str], mask: list[bool]) -> list[str]:
+    """Given a list of csv values (str) and a list of bool, count how many values for every True, 0 for every False."""
+    result: list[str] = []
+    for i in range(len(input)):
+        if mask[i]:
+            result.append(str(len(input[i].split(","))))
+        else:
+            result.append("0")
+    return result
+
+
 def average_list(input: list[int]) -> float:
     """Given a list of integers, returns the average value of the list."""
     accumulator: int = 0
     for number in input:
         accumulator += number
     return accumulator / len(input)
+
+
+def average_columns(input: dict[str, list[str]]) -> list[str]:
+    """Given a dict of columns of numbers, return a list that is the mean of each row(index) while ignoring empty cells."""
+    result: list[str] = []
+    keys: list[str] = []
+    for key in input.keys():
+        keys.append(str(key))
+    for i in range(len(input[keys[0]])):
+        row_sum: int = 0
+        row_count: int = 0
+        for key in input.keys():
+            if input[key][i] != '':  # Ignore empty fields
+                row_count += 1
+                row_sum += int(input[key][i])
+        result.append(str(row_sum / row_count))
+
+    return result
+
+
+def not_none_mask(input: list[str]) -> list[bool]:
+    output: list[bool] = []
+    for line in input:
+        if line == "None":
+            output.append(False)
+        else:
+            output.append(True)
+    return output
+
+
