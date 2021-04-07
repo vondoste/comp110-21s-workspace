@@ -114,8 +114,10 @@ def average_list(input: list[int]) -> float:
     return accumulator / len(input)
 
 
+
+
 def average_columns(input: dict[str, list[str]]) -> list[str]:
-    """Given a dict of columns of numbers, return a list that is the mean of each row(index) while ignoring empty cells."""
+    """Given a dict of columns of numbers, return a list that is the rounded mean of each row(index) while ignoring empty cells."""
     result: list[str] = []
     keys: list[str] = []
     for key in input.keys():
@@ -127,7 +129,7 @@ def average_columns(input: dict[str, list[str]]) -> list[str]:
             if input[key][i] != '':  # Ignore empty fields
                 row_count += 1
                 row_sum += int(input[key][i])
-        result.append(str(row_sum / row_count))
+        result.append(str(round(row_sum / row_count)))
 
     return result
 
@@ -142,3 +144,15 @@ def not_none_mask(input: list[str]) -> list[bool]:
     return output
 
 
+def str_list_to_int(input: list[str]) -> list[int]:
+    output: list[int] = []
+    for item in input:
+        output.append(int(item))
+    return output
+
+
+def int_list_to_str(input: list[int]) -> list[str]:
+    output: list[str] = []
+    for item in input:
+        output.append(str(item))
+    return output
