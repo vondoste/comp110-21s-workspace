@@ -8,6 +8,7 @@ __author__ = "730366999"
 
 
 class Simpy:
+    """Simpy - a simple Numpy-like class for learning purposes."""
     values: list[float]
 
     # TODO: Your constructor and methods will go here.
@@ -58,8 +59,10 @@ class Simpy:
         return sum(self.values)
     
     def __add__(self, rhs: Union[float, Simpy]) -> Simpy:
+        """SimpyC[i] = SimpyA[i] + float or SimpyC[i] = SimpyA[i] + SimpyB[i]."""
         result: list[float] = []
         if isinstance(rhs, Simpy):
+            assert len(self.values) == len(rhs.values)
             for i in range(len(self.values)):
                 result.append(self.values[i] + rhs.values[i])
         else:
@@ -67,5 +70,62 @@ class Simpy:
                 result.append(self.values[i] + rhs)
         return Simpy(result)
 
-    def __mul__(self, rhs: Union[float, Simpy]) -> Simpy:
-        
+    def __pow__(self, rhs: Union[float, Simpy]) -> Simpy:
+        """SimpyC[i] = SimpyA[i] ** float or SimpyC[i] = SimpyA[i] ** SimpyB[i]."""
+        result: list[float] = []
+        if isinstance(rhs, Simpy):
+            assert len(self.values) == len(rhs.values)
+            for i in range(len(self.values)):
+                result.append(self.values[i] ** rhs.values[i])
+        else:
+            for i in range(len(self.values)):
+                result.append(self.values[i] ** rhs)
+        return Simpy(result)
+
+    def __mod__(self, rhs: Union[float, Simpy]) -> Simpy:
+        """SimpyC[i] = SimpyA[i] % float or SimpyC[i] = SimpyA[i] % SimpyB[i]."""
+        result: list[float] = []
+        if isinstance(rhs, Simpy):
+            assert len(self.values) == len(rhs.values)
+            for i in range(len(self.values)):
+                result.append(self.values[i] % rhs.values[i])
+        else:
+            for i in range(len(self.values)):
+                result.append(self.values[i] % rhs)
+        return Simpy(result)
+
+    def __eq__(self, rhs: Union[float, Simpy]) -> list[bool]:
+        """result[i] = True if SimpyA[i] == float or result[i] = True if SimpyA[i] == SimpyB[i]."""
+        result: list[bool] = []
+        if isinstance(rhs, Simpy):
+            assert len(self.values) == len(rhs.values)
+            for i in range(len(self.values)):
+                result.append(self.values[i] == rhs.values[i])
+        else:
+            for i in range(len(self.values)):
+                result.append(self.values[i] == rhs)
+        return result
+
+    def __gt__(self, rhs: Union[float, Simpy]) -> list[bool]:
+        """result[i] = True if SimpyA[i] > float or result[i] = True if SimpyA[i] > SimpyB[i]."""
+        result: list[bool] = []
+        if isinstance(rhs, Simpy):
+            assert len(self.values) == len(rhs.values)
+            for i in range(len(self.values)):
+                result.append(self.values[i] > rhs.values[i])
+        else:
+            for i in range(len(self.values)):
+                result.append(self.values[i] > rhs)
+        return result
+
+    def __getitem__(self, rhs: Union[int, list[bool]]) -> Union[float, Simpy]:
+        """Return float = SimpyA[rhs] or return SimpyB containing all SimpyA[i] where rhs[i] is True."""
+        if isinstance(rhs, int):
+            return self.values[rhs]
+        else:
+            assert len(self.values) == len(rhs)
+            result: list[float] = []
+            for i in range(len(self.values)):
+                if rhs[i]:
+                    result.append(self.values[i])
+            return Simpy(result)
