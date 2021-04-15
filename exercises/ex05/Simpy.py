@@ -18,16 +18,17 @@ class Simpy:
     def __repr__(self) -> str:
         """Builds a str representation of the object like Simpy(...), with the values inside the ()."""
         result: str = ""
-        result += "Simpy("
+        result += "Simpy(["
         for i in range(len(self.values)):
             if i == (len(self.values) - 1):
-                result += f"{self.values[i]})"
+                result += f"{self.values[i]}])"
             else:
                 result += f"{self.values[i]}, "
         return result
     
     def fill(self, value: float, count: int) -> None:
         """Fills a Simpy object with {count} copies of {value}."""
+        assert count > 0
         self.values = []
         for i in range(count):
             self.values.append(value)
@@ -58,4 +59,13 @@ class Simpy:
     
     def __add__(self, rhs: Union[float, Simpy]) -> Simpy:
         result: list[float] = []
+        if isinstance(rhs, Simpy):
+            for i in range(len(self.values)):
+                result.append(self.values[i] + rhs.values[i])
+        else:
+            for i in range(len(self.values)):
+                result.append(self.values[i] + rhs)
+        return Simpy(result)
+
+    def __mul__(self, rhs: Union[float, Simpy]) -> Simpy:
         
