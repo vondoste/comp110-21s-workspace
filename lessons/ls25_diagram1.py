@@ -5,7 +5,7 @@ class Rat:
     n: int
     d: int
 
-    def __init__(self, n: int, d: int) -> None:
+    def __init__(self, n: int, d: int):
         self.n = n
         self.d = d
 
